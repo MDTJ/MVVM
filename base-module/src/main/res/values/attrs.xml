@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomToolBar">
+        <attr name="custom_isHaveLeftButton" format="boolean" />
+        <attr name="custom_isHaveRightButton" format="boolean" />
+        <attr name="custom_titleSize" format="dimension" />
+        <attr name="custom_titleColor" format="color" />
+        <attr name="custom_titleText" format="string" />
+        <attr name="custom_srcLeft" format="reference" />
+        <attr name="custom_srcRight" format="reference" />
+        <attr name="custom_font" format="enum">
+            <enum name="default_font" value="0" />
+            <enum name="ping_fang_regular" value="1" />
+            <enum name="ping_fang_medium" value="2" />
+            <enum name="ping_fang_bold" value="3" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="BaseTextView">
+        <attr name="baseTextView_font" format="enum">
+            <enum name="default_font" value="0" />
+            <enum name="ping_fang_regular" value="1" />
+            <enum name="ping_fang_medium" value="2" />
+            <enum name="ping_fang_bold" value="3" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="BaseEditText">
+        <attr name="baseEditText_maxLength" format="integer" />
+        <attr name="baseEditText_font" format="enum">
+            <enum name="default_font" value="0" />
+            <enum name="ping_fang_regular" value="1" />
+            <enum name="ping_fang_medium" value="2" />
+            <enum name="ping_fang_bold" value="3" />
+        </attr>
+    </declare-styleable>
+</resources>

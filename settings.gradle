@@ -1,0 +1,2 @@
+include ':app', ':base-module'
+rootProject.name='MVVM'
