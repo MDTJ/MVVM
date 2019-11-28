@@ -1,0 +1,10 @@
+<resources>
+
+    <!-- GENERAL -->
+    <dimen name="default_stroke_width">7dp</dimen>
+    <dimen name="default_background_stroke_width">3dp</dimen>
+    <dimen name="font_size_medium">16sp</dimen>
+    <dimen name="dip_size_22">22.0dip</dimen>
+    <dimen name="dip_size_6">6.0dip</dimen>
+    <dimen name="font_size_nomarl">14sp</dimen>
+</resources>

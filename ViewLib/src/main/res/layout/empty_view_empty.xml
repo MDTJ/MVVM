@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+
+        >
+
+        <ImageView
+            android:id="@+id/app_view_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/pic_content"
+            android:layout_marginTop="80dp"/>
+
+        <TextView
+            android:id="@+id/app_message_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dip_size_22"
+            android:gravity="center_horizontal"
+            android:lines="1"
+            android:text="@string/empty_view_empty"
+            android:textSize="@dimen/font_size_medium"
+            android:visibility="gone"/>
+        <ImageView
+            android:layout_width="@dimen/x265"
+            android:layout_height="@dimen/y28"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y80"
+            android:text="刷新"
+            android:id="@+id/app_action_empty_btn"
+            android:layout_marginLeft="@dimen/x161"
+            android:layout_marginRight="@dimen/x161"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/textSize_30"
+            android:textColor="@color/white"
+            android:background="@drawable/exam_selector_startexam"
+            android:layout_below="@id/app_message_tv"
+            />
+
+
+    </LinearLayout>
+
+    <!--<Button-->
+        <!--android:id="@+id/app_action_empty_btn"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:background="@android:color/transparent"-->
+        <!--android:text=""-->
+        <!--android:textColor="@android:color/transparent"/>-->
+
+
+</RelativeLayout>

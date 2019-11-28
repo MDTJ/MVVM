@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+
+    >
+
+    <ImageView
+        android:id="@+id/app_view_iv"
+        android:layout_width="@dimen/x611"
+        android:layout_height="@dimen/y345"
+        android:src="@mipmap/error_pic_buyone"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        />
+
+    <TextView
+        android:id="@+id/app_message_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:singleLine="false"
+        android:textSize="16sp"
+        android:layout_below="@id/app_view_iv"
+
+        />
+
+    <Button
+        android:id="@+id/app_action_empty_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text=""
+        android:visibility="gone"
+        android:textColor="@android:color/transparent"/>
+
+</RelativeLayout>

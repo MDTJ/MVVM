@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DropDownMenuTitle">
+        <attr name="selectedColor" format="color" />
+        <attr name="unselectedColor" format="color" />
+        <attr name="selectedIcon" format="reference" />
+        <attr name="unselectedIcon" format="reference" />
+        <attr name="text_size" format="dimension" />
+        <attr name="text_max_length" format="integer" />
+        <attr name="text" format="string" />
+    </declare-styleable>
+</resources>
