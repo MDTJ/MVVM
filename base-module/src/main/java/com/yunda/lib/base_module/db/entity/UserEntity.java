@@ -1,4 +1,4 @@
-package com.yunda.mvvm.db;
+package com.yunda.lib.base_module.db.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

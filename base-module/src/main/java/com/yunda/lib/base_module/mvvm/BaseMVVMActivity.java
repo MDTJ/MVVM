@@ -20,7 +20,7 @@ import java.lang.reflect.Type;
  * Created by mtt on 2019-11-22
  * Describe
  */
-public abstract class BaseMVVMActivity<VM extends BaseViewModel,VB extends ViewDataBinding,M> extends BaseEmptyActivity<VB,M> {
+public abstract class BaseMVVMActivity<VM extends BaseViewModel,VB extends ViewDataBinding> extends BaseEmptyActivity<VB> {
     protected VM viewModel;
 
 
@@ -41,7 +41,7 @@ public abstract class BaseMVVMActivity<VM extends BaseViewModel,VB extends ViewD
                 modelClass = BaseViewModel.class;
             }
             viewModel = (VM) ViewModelProviders.of(this).get(modelClass);
-            viewModel.setAutoDisposeConverter(AutoDispose.<BaseBean<M>>autoDisposable(AndroidLifecycleScopeProvider.from(this)));
+            viewModel.setAutoDisposeConverter(AutoDispose.<BaseBean>autoDisposable(AndroidLifecycleScopeProvider.from(this)));
         }
     }
 }

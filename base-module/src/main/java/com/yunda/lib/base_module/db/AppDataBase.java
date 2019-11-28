@@ -1,7 +1,10 @@
-package com.yunda.mvvm.db;
+package com.yunda.lib.base_module.db;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
+
+import com.yunda.lib.base_module.db.entity.UserDao;
+import com.yunda.lib.base_module.db.entity.UserEntity;
 
 
 /**

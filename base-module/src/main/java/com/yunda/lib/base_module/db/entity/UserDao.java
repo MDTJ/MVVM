@@ -1,4 +1,4 @@
-package com.yunda.mvvm.db;
+package com.yunda.lib.base_module.db.entity;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -19,26 +19,12 @@ import io.reactivex.Observable;
 @Dao
 public interface UserDao {
     @Insert
-    Long insert(UserEntity userEntity);
-
-
-    @Delete
-    void delete(UserEntity userEntity);
-
-
-    @Update()
-    void update(UserEntity userEntity);
+    void insert(UserEntity userEntity);
 
 
     @Query("SELECT * FROM UserEntity")
     LiveData<List<UserEntity>> getAllByLivedata();
 
-    @Query("SELECT * FROM UserEntity")
-    Flowable<List<UserEntity>> getByUid();
-
-
-    @Query("SELECT * FROM UserEntity")
-    Observable<List<UserEntity>> getByUid2();
 
 
 

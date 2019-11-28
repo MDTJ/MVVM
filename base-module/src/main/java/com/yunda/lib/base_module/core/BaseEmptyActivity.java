@@ -3,6 +3,7 @@ package com.yunda.lib.base_module.core;
 import android.util.Log;
 
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
@@ -10,11 +11,11 @@ import androidx.lifecycle.Observer;
  * Created by mtt on 2019-11-22
  * Describe
  */
-public abstract class BaseEmptyActivity<VB extends ViewDataBinding,M> extends BaseActivity<VB> {
+public abstract class BaseEmptyActivity<VB extends ViewDataBinding> extends BaseActivity<VB> {
 
 
 
-    public abstract  class OnCallBack implements BaseEmptyView<M>{
+    public abstract  class OnCallBack<M> implements BaseEmptyView<M>{
 
         @Override
         public void showEmpty() {
@@ -53,9 +54,9 @@ public abstract class BaseEmptyActivity<VB extends ViewDataBinding,M> extends Ba
         }
 
     }
-    protected  void observe(MutableLiveData<BaseBean<M>> mutableLiveData,OnCallBack onCallBack){
+    protected <M> void observe(LiveData<BaseBean<M>> liveData, OnCallBack onCallBack){
 
-        mutableLiveData.observe(this, new Observer<BaseBean<M>>() {
+        liveData.observe(this, new Observer<BaseBean<M>>() {
             @Override
             public void onChanged(BaseBean<M> mBaseBean) {
                 M body = mBaseBean.getBody();

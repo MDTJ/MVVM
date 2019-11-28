@@ -19,11 +19,11 @@ import io.reactivex.disposables.Disposable;
  * Created by mtt on 2019-11-22
  * Describe
  */
-public abstract class BaseViewModel<A,M> extends AndroidViewModel {
+public abstract class BaseViewModel<A,R extends BaseRepository<A>> extends AndroidViewModel {
     private CompositeDisposable compositeDisposable;
     protected A apiService;
-    protected BaseRepository<A,M> repository;
-    protected AutoDisposeConverter<BaseBean<M>> autoDisposeConverter;
+    protected R repository;
+    protected AutoDisposeConverter<BaseBean> autoDisposeConverter;
 
 
     public BaseViewModel(@NonNull Application application) {
@@ -55,9 +55,23 @@ public abstract class BaseViewModel<A,M> extends AndroidViewModel {
 
 
 
-    protected <R extends BaseRepository<A,M>> R createRepository() {
-        return ((R) new BaseRepository<A, M>());
+    private R createRepository() {
+        Class cs;
+        Type type = getClass().getGenericSuperclass();
+        if (type instanceof ParameterizedType) {
+            cs = (Class) ((ParameterizedType) type).getActualTypeArguments()[1];
+            try {
+                return ((R) cs.newInstance());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+
     }
+
 
 
     @Override

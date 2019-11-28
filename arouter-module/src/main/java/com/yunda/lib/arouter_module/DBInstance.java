@@ -1,6 +1,8 @@
-package com.yunda.mvvm.db;
+package com.yunda.lib.arouter_module;
 
 import androidx.room.Room;
+
+import com.yunda.lib.base_module.db.AppDataBase;
 
 /**
  * Created by mtt on 2019-11-27
@@ -13,7 +15,7 @@ public class DBInstance {
         if(appDataBase==null){
             synchronized (DBInstance.class){
                 if(appDataBase==null){
-                    appDataBase = Room.databaseBuilder(MyApplication.getInstance(),AppDataBase.class, DB_NAME)
+                    appDataBase = Room.databaseBuilder(BaseApplication.getContext(),AppDataBase.class, DB_NAME)
                             .build();
                 }
             }
