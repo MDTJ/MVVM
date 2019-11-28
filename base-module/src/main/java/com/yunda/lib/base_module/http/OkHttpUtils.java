@@ -68,7 +68,7 @@ public class OkHttpUtils {
     }
 
     public static Retrofit getRetrofit(OkHttpClient okHttpClient) {
-        return getRetrofit("http://10.20.146.44:8060/", okHttpClient);
+        return getRetrofit("http://10.20.143.129:8060/", okHttpClient);
     }
 
 }

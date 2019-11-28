@@ -1,0 +1,110 @@
+ext {
+    android = [
+            compileSdkVersion  : 29,
+            buildToolsVersion  : '29.0.2',
+            minSdkVersion      : 16,
+            targetSdkVersion   : 29,
+            javaVersion        : JavaVersion.VERSION_1_8,
+            id                 : "com.yunda.wms",
+            versionCode        : 1,
+            versionName        : "1.0.0",
+            flavorDimensions   : "6"
+    ]
+    depsVersion = [
+            SmartRefreshLayoutVersion   :'1.1.0',
+            barlibraryVersion           : '2.3.3',
+            appcompatVersion      : '1.1.0',
+            supportmultidexVersion: '1.0.3',
+            butterknifeVersion    : '8.8.1',
+            retrofitVersion       : '2.4.0',
+            okioVersion           : '1.14.0',
+            okhttpVersion         : '3.10.0',
+
+            rxJavaVersion2        : '2.1.12',
+            rxAndroidVersion2     : '2.1.0',
+            rxlifecycleVersion    : '2.0.1',
+
+            brvahVersion          : '2.9.47-androidx',
+            glideVersion          : '4.9.0',
+
+            fastjsonVersion       : '1.1.67.android',
+
+            junitVersion          :  '4.12',
+            mockitoVersion        :  '2.10.0',
+            timberVersion         : '4.6.0',
+            arouterVersion        : '1.3.1',
+            arouterCompilerVersion        : '1.1.4',
+            recyclerviewVersion    :'1.0.0',
+            testRunner  :'1.2.0',
+            espressoCore  :'3.2.0'
+
+    ]
+    deps = [
+            smartRefreshLayout      : 'com.scwang.smartrefresh:SmartRefreshLayout:'+depsVersion.SmartRefreshLayoutVersion,
+            testRunner              : 'com.android.support.test:runner:'+depsVersion.testRunner,
+            espressoCore            : 'com.android.support.test.espresso:espresso-core:'+depsVersion.espressoCore,
+            html_textview           : 'org.sufficientlysecure:html-textview:'+depsVersion.html_textviewVersion,
+            barlibrary              : 'com.gyf.immersionbar:immersionbar:' + depsVersion.barlibraryVersion,
+            appcompat               : 'androidx.appcompat:appcompat:' + depsVersion.appcompatVersion,
+            okio                    : 'com.squareup.okio:okio:' + depsVersion.okioVersion,
+            recyclerview            : 'androidx.recyclerview:recyclerview:' +depsVersion.recyclerviewVersion,
+
+            rxjava2                 : 'io.reactivex.rxjava2:rxjava:' + depsVersion.rxJavaVersion2,
+            rxandroid2              : 'io.reactivex.rxjava2:rxandroid:' + depsVersion.rxAndroidVersion2,
+            butterknife             : 'com.jakewharton:butterknife:' + depsVersion.butterknifeVersion,
+            butterknifeCompiler     : 'com.jakewharton:butterknife-compiler:' + depsVersion.butterknifeVersion,
+            retrofit                : 'com.squareup.retrofit2:retrofit:' + depsVersion.retrofitVersion,
+            retrofitConverterScalars: 'com.squareup.retrofit2:converter-scalars:' + depsVersion.retrofitVersion,
+            retrofitconverterGson   : 'com.squareup.retrofit2:converter-gson:' + depsVersion.retrofitVersion,
+            retrofitAdapterRxjava   : 'com.squareup.retrofit2:adapter-rxjava:' + depsVersion.retrofitVersion,
+            retrofitAdapterRxjava2  : 'com.squareup.retrofit2:adapter-rxjava2:' + depsVersion.retrofitVersion,
+            okhttp                  : 'com.squareup.okhttp3:okhttp:' + depsVersion.okhttpVersion,
+            okhttpUrlconnection     : 'com.squareup.okhttp3:okhttp-urlconnection:' + depsVersion.okhttpVersion,
+            okhttpLoggingInterceptor: 'com.squareup.okhttp3:logging-interceptor:' + depsVersion.okhttpVersion,
+
+            fastjson                : 'com.alibaba:fastjson:' + depsVersion.fastjsonVersion,
+            multidex                : 'com.android.support:multidex:' + depsVersion.supportmultidexVersion,
+
+            rxlifecycle             : 'com.trello.rxlifecycle2:rxlifecycle-android:' + depsVersion.rxlifecycleVersion,
+            rxlifecycleComponents   : 'com.trello.rxlifecycle2:rxlifecycle-components:' + depsVersion.rxlifecycleVersion,
+
+            BaseRecyclerViewAdapterHelper     : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:'+ depsVersion.brvahVersion,
+
+            glide                   : 'com.github.bumptech.glide:glide:'+ depsVersion.glideVersion,
+
+            junit             : 'junit:junit:' + depsVersion.junitVersion,
+            mockito             : 'org.mockito:mockito-core:' + depsVersion.mockitoVersion,
+            timber                : 'com.jakewharton.timber:timber:' + depsVersion.timberVersion,
+
+            arouter                  : 'com.alibaba:arouter-api:' + depsVersion.arouterVersion,
+            arouterCompiler          : 'com.alibaba:arouter-compiler:' + depsVersion.arouterCompilerVersion,
+
+
+    ]
+
+    netDebug = [
+            domain  : "http://10.20.148.184:8060/",
+            protocol: "",
+            port    : ""
+    ]
+
+    net = [
+            domain  : "",
+            protocol: "",
+            port    : ""
+    ]
+
+
+    routerUrl = [
+
+    ]
+
+
+    commonParams = [
+            APP_SECRET : "",
+            DEVICE_TYPE : "",
+            appName : "",
+            appKey : ""
+    ]
+
+}

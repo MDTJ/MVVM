@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFF</color>
+    <color name="colorPrimaryDark">#FFFF</color>
+    <color name="colorAccent">#FF8800</color>
+
+
+    <color name="titleTextColor">#353434</color>
+    <color name="text_black">#484848</color>
+    <color name="text_hit">#919191</color>
+
+
+    <color name="cF80">#ff8800</color>
+    <color name="cFCA">#fca037</color>
+    <color name="c484">#484848</color>
+    <color name="c919">#919191</color>
+
+    <color name="cEBE">#ebebeb</color>
+    <color name="c35B">#35b0ff</color>
+    <color name="c867">#867cff</color>
+    <color name="c16D">#16d46f</color>
+    <color name="cFF7">#ff7474</color>
+
+    <color name="dialog_bg_color">#F7F7F7</color>
+    <color name="dialog_view">#D2D2DA</color>
+    <color name="light_blue">#F3F2FF</color>
+    <color name="pale_green">#E7FBF0</color>
+    <color name="light_orange">#FFF3E5</color>
+    <color name="light_red">#FFF1F1</color>
+    <color name="white">#FFFFFF</color>
+    <color name="ffc9">#FFC9A3</color>
+
+
+    <color name="c55A">#55ACEE</color>
+    <color name="cE0E">#E0E4E9</color>
+    <color name="cECE">#ECECEC</color>
+    <color name="c97A">#97A1AA</color>
+    <color name="c4E5">#4E5F6F</color>
+    <color name="cD2D">#D2D2DA</color>
+
+    <color name="cF2F">#f2f4f7</color>
+    <color name="cFF6">#FF6286</color>
+    <color name="cFF3">#FF3B30</color>
+    <color name="c66D">#66D99F</color>
+    <color name="cDBD">#DBDBDB</color>
+    <color name="cFF9">#FF9600</color>
+    <color name="cFFA">#FFA900</color>
+    <color name="c58B">#58B2F0</color>
+    <color name="cEEE">#EEEEEE</color>
+    <color name="c999">#999999</color>
+
+    <color name="c804E5">#804E5F6F</color>
+    <color name="c8058B">#8058B2F0</color>
+    <color name="c8066D">#B2ECCF</color>
+    <color name="c8097A">#8097A1AA</color>
+    <color name="c8055A">#8055ACEE</color>
+
+    <color name="c80FF3">#80FF3B30</color>
+    <color name="c4cblack">#4c000000</color>
+    <color name="cE3E">#E3E3E3</color>
+    <color name="c333">#333333</color>
+
+</resources>

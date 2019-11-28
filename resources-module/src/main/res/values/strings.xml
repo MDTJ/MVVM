@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Resources-Module</string>
+    <string name="dataError">网络异常</string>
+    <string name="empty">暂无内容</string>
+</resources>

@@ -3,6 +3,7 @@ package com.yunda.mvvm;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
@@ -29,23 +30,7 @@ public class MainViewModel extends BaseViewModel<MainApiService,UserBean> {
     }
 
     public MutableLiveData<BaseBean<UserBean>> getData(){
-        final MutableLiveData<BaseBean<UserBean>> liveData = new MutableLiveData<>();
-        Disposable subscribe = apiService.getData().subscribeOn(Schedulers.io()).compose(RxUtils.checkResponseResult()).doOnSubscribe(new Consumer<Disposable>() {
-            @Override
-            public void accept(Disposable disposable) throws Exception {
-                BaseBean baseBean=new BaseBean();
-                baseBean.setType(1);
-                liveData.postValue(baseBean);
-            }
-        }).as(autoDisposeConverter).subscribe(new Consumer<BaseBean<UserBean>>() {
-            @Override
-            public void accept(BaseBean<UserBean> beanBaseBean) throws Exception {
-                beanBaseBean.setType(0);
-                liveData.postValue(beanBaseBean);
-            }
-        },new RxUtils.SimpleToastThrowable(liveData));
-        addSubscribe(subscribe);
-        return liveData;
+        return repository.getHttpData(apiService.getData());
     }
 
 }

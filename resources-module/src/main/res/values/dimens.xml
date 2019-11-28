@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <dimen name="horizontal_margin">@dimen/x30</dimen>
+    <dimen name="vertical_margin">@dimen/y30</dimen>
+
+    <dimen name="textSize_44">@dimen/y44</dimen>
+    <dimen name="textSize_36">@dimen/y36</dimen>
+    <dimen name="textSize_34">@dimen/y34</dimen>
+    <dimen name="textSize_32">@dimen/y32</dimen>
+    <dimen name="textSize_30">@dimen/y30</dimen>
+    <dimen name="textSize_28">@dimen/y28</dimen>
+    <dimen name="textSize_24">@dimen/y24</dimen>
+    <dimen name="textSize_20">@dimen/y20</dimen>
+
+
+    <dimen name="radius_20">@dimen/y20</dimen>
+    <dimen name="shadow">1dp</dimen>
+
+
+</resources>
