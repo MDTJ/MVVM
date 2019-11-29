@@ -17,6 +17,4 @@ public interface MainApiService {
     @POST("getUser")
     Observable<BaseBean<UserBean>> getData();
 
-    @POST("getUser")
-    Observable<BaseBean<UserBean>> getData(@Field("file")String a);
 }

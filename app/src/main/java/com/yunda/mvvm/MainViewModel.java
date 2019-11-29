@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.ObservableSubscribeProxy;
 import com.yunda.lib.arouter_module.DBInstance;
 import com.yunda.lib.base_module.core.BaseBean;
 import com.yunda.lib.base_module.db.entity.UserEntity;
@@ -44,18 +46,7 @@ public class MainViewModel extends BaseViewModel<MainApiService,MainRepository> 
 
 
     public void insert(UserEntity entity){
-        Completable.create(new CompletableOnSubscribe() {
-            @Override
-            public void subscribe(CompletableEmitter emitter) throws Exception {
-                DBInstance.getInstance().getUserDao().insert(entity);
-                emitter.onComplete();
-            }
-        }).subscribeOn(Schedulers.io()).subscribe(new Action() {
-            @Override
-            public void run() throws Exception {
-                Log.e("adadad","insertSuccess");
-            }
-        });
+
     }
 
     public LiveData<List<UserEntity>> query(){

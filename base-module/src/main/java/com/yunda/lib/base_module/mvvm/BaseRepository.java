@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.uber.autodispose.AutoDisposeConverter;
 import com.uber.autodispose.ObservableSubscribeProxy;
 import com.yunda.lib.base_module.core.BaseBean;
+import com.yunda.lib.base_module.core.ShowStateType;
 import com.yunda.lib.base_module.http.RxUtils;
 import io.reactivex.Observable;
 import io.reactivex.ObservableConverter;
@@ -41,14 +42,20 @@ public class BaseRepository<A> {
             @Override
             public void accept(Disposable disposable) throws Exception {
                 BaseBean baseBean = new BaseBean();
-                baseBean.setType(1);
+                baseBean.setType(ShowStateType.TYPE_SHOWWAITTING);
                 liveData.postValue(baseBean);
             }
         }).as(autoDisposeConverter)).subscribe(new Consumer<BaseBean>() {
             @Override
             public void accept(BaseBean beanBaseBean) throws Exception {
-                beanBaseBean.setType(0);
-                liveData.postValue(beanBaseBean);
+                if(beanBaseBean.getBody()==null){
+                    beanBaseBean.setType(ShowStateType.TYPE_SHOWTOAST);
+                    beanBaseBean.setThrowable(new Throwable("数据异常"));
+                }else {
+                    beanBaseBean.setType(ShowStateType.TYPE_SHOWCONTENT);
+                    liveData.postValue(beanBaseBean);
+                }
+
             }
         },new RxUtils.SimpleToastThrowable(liveData));
         addSubscribe(subscribe);

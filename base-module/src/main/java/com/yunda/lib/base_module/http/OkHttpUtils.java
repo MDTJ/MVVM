@@ -50,6 +50,23 @@ public class OkHttpUtils {
         return okHttpClient;
     }
 
+    public static OkHttpClient getOkHttpClientOfTest(BaseProvider provider) {
+        if (okHttpClient == null) {
+            BaseLoggingInterceptor logging = new BaseLoggingInterceptor(message -> System.out.println(message));
+
+            okHttpClient = new OkHttpClient().newBuilder()
+//                    .cache(new Cache(new File(Environment.getDataDirectory() + "/okhttp_cache/"), 50 * 1024 * 1024))
+                    .connectTimeout(10 * 1000, TimeUnit.MILLISECONDS)
+                    .readTimeout(10 * 1000, TimeUnit.MILLISECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
+                    .retryOnConnectionFailure(true)
+                    .addInterceptor(new CommonParamsInterceptor(provider))
+                    .addInterceptor(logging)
+                    .build();
+        }
+        return okHttpClient;
+    }
+
     public static Retrofit getRetrofit(String url, OkHttpClient okHttpClient) {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
@@ -68,7 +85,7 @@ public class OkHttpUtils {
     }
 
     public static Retrofit getRetrofit(OkHttpClient okHttpClient) {
-        return getRetrofit("http://10.20.142.42:8060/", okHttpClient);
+        return getRetrofit("http://10.20.149.185:8060/", okHttpClient);
     }
 
 }

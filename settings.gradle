@@ -1,2 +1,2 @@
-include ':app', ':base-module', ':ViewLib', ':resources-module', ':arouter-module'
+include ':app', ':base-module', ':ViewLib', ':resources-module', ':arouter-module', ':test-module', ':debuglogin-module'
 rootProject.name='MVVM'

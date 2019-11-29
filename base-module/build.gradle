@@ -1,19 +1,23 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
 
+    compileOptions {
+        sourceCompatibility rootProject.ext.android.javaVersion
+        targetCompatibility rootProject.ext.android.javaVersion
+    }
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
         buildConfigField("String", "ID", "\"" + rootProject.ext.android.id + "\"")
+        buildConfigField("Boolean", "ISONLINE",isOnline)
     }
 
     buildTypes {
@@ -25,42 +29,39 @@ android {
     dataBinding {
         enabled = true
     }
-    compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
-    }
 
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation deps.appcompat
+    testImplementation deps.junit
+    androidTestImplementation deps.testRunner
+    androidTestImplementation deps.espressoCore
 
-    //okhttp、retrofit、rxjava
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.alibaba:fastjson:1.1.67.android'
-    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
+    api deps.okhttp
+    api deps.retrofit
+    api deps.fastjson
+    api deps.retrofitConverterScalars
+    api deps.rxjava2
+
+    api deps.retrofitAdapterRxjava2
 
 
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation deps.lifecycle
 
     //Room的依赖引用
-    api 'androidx.room:room-runtime:2.0.0'
-    annotationProcessor 'androidx.room:room-compiler:2.0.0'
+    api deps.room
+    annotationProcessor deps.room_compiler
 
     //Room配合RxJava使用
-    api 'androidx.room:room-rxjava2:2.0.0'
-    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'com.jakewharton.timber:timber:4.6.0'
-    implementation 'com.gyf.immersionbar:immersionbar:2.3.3'
+    api deps.room_rxjava2
+    api deps.rxandroid2
+    api deps.timber
+    api deps.barlibrary
 
-    api 'com.uber.autodispose:autodispose-android-archcomponents:1.4.0'
-    api 'androidx.recyclerview:recyclerview:1.0.0'
+    api deps.autodispose
+    api deps.recyclerview
+    api project(':ViewLib')
 
 }

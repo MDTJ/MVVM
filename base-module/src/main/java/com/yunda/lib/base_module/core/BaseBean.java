@@ -7,6 +7,15 @@ package com.yunda.lib.base_module.core;
 public class BaseBean<T> {
     private int type;
     private T body;
+    private Throwable throwable;
+
+    public void setThrowable(Throwable throwable) {
+        this.throwable = throwable;
+    }
+
+    public Throwable getThrowable() {
+        return throwable;
+    }
 
     public int getType() {
         return type;

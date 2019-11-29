@@ -42,6 +42,8 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel, ActivityMainBi
     @Override
     public void initData() {
         setToolBarTitle("Main");
+        initEmptyViewLayout(R.id.empty);
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment,new MainFragment()).commit();
 
     }
 
@@ -58,9 +60,9 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel, ActivityMainBi
         query.observe(this, new Observer<List<UserEntity>>() {
             @Override
             public void onChanged(List<UserEntity> userEntities) {
-                Log.e("adadd",userEntities.size()+"");
                 query.removeObservers(MainActivity.this);
             }
         });
     }
+
 }

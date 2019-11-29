@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.yunda.lib.base_module.core.BaseBean;
+import com.yunda.lib.base_module.core.ShowStateType;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -33,15 +34,15 @@ public class RxUtils {
     private RxUtils() {
     }
 
-//    public static <T> ObservableTransformer<T, T> supportSchedulers() {
-//        return new ObservableTransformer<T, T>() {
-//            @Override
-//            public ObservableSource<T> apply(Observable<T> upstream) {
-//                return upstream.subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread());
-//            }
-//        };
-//    }
+    public static <T> ObservableTransformer<T, T> supportSchedulers() {
+        return new ObservableTransformer<T, T>() {
+            @Override
+            public ObservableSource<T> apply(Observable<T> upstream) {
+                return upstream.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
 
 
     /**
@@ -176,17 +177,25 @@ public class RxUtils {
             if (throwable == null){
                 throwable = new Exception("您的网络好像有问题!");
             }
+            BaseBean<M> value = liveData.getValue();
+            value.setThrowable(throwable);
+            value.setType(ShowStateType.TYPE_SHOWNETERROR);
 
         }
 
         @Override
         protected void dataError(Throwable throwable) {
+            BaseBean<M> value = liveData.getValue();
+            value.setThrowable(throwable);
+            value.setType(ShowStateType.TYPE_SHOWDATAERROR);
 
         }
 
         @Override
         protected void otherError(Throwable throwable) {
-
+            BaseBean<M> value = liveData.getValue();
+            value.setThrowable(throwable);
+            value.setType(ShowStateType.TYPE_SHOWDATAERROR);
         }
     }
 
@@ -200,16 +209,24 @@ public class RxUtils {
             if (throwable == null){
                 throwable = new Exception("您的网络好像有问题!");
             }
+            BaseBean<M> value = liveData.getValue();
+            value.setThrowable(throwable);
+            value.setType(ShowStateType.TYPE_SHOWTOAST);
 
         }
 
         @Override
         protected void dataError(Throwable throwable) {
-
+            BaseBean<M> value = liveData.getValue();
+            value.setThrowable(throwable);
+            value.setType(ShowStateType.TYPE_SHOWTOAST);
         }
 
         @Override
         protected void otherError(Throwable throwable) {
+            BaseBean<M> value = liveData.getValue();
+            value.setThrowable(throwable);
+            value.setType(ShowStateType.TYPE_SHOWTOAST);
 
 
         }

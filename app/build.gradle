@@ -1,8 +1,5 @@
 
-
-
 apply plugin: 'com.android.application'
-apply plugin: 'android-aspectjx'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -59,4 +56,6 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.6.0'
     implementation project(':base-module')
     implementation project(':arouter-module')
+    testImplementation project(':test-module')
+    debugImplementation project(':debuglogin-module')
 }

@@ -1,6 +1,5 @@
 package com.yunda.lib.base_module.core;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -8,22 +7,20 @@ import androidx.annotation.IdRes;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.BaseDialogFragment;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.yunda.lib.view.emptyview.EmptyViewLayout;
 
 /**
- * Created by mtt on 2019-11-22
+ * Created by mtt on 2019-11-28
  * Describe
  */
-public abstract class BaseEmptyActivity<VB extends ViewDataBinding> extends BaseActivity<VB> implements EmptyViewLayout.ErrorViewListener{
-
+public abstract class BaseEmptyFragment<VB extends ViewDataBinding> extends BaseFragment<VB> implements EmptyViewLayout.ErrorViewListener {
     protected EmptyViewLayout mEmptyViewLayout;
     private BaseDialogFragment baseDialogFragment;
 
     protected void initEmptyViewLayout(View view) {
-        mEmptyViewLayout = new EmptyViewLayout(this, view);
+        mEmptyViewLayout = new EmptyViewLayout(getActivity(), view);
         mEmptyViewLayout.setErrorListener(this);
         setEmptyView(mEmptyViewLayout);
     }
@@ -31,7 +28,7 @@ public abstract class BaseEmptyActivity<VB extends ViewDataBinding> extends Base
     protected void setEmptyView(EmptyViewLayout emptyView){
     }
     protected void initEmptyViewLayout(@IdRes int id) {
-        initEmptyViewLayout(findViewById(id));
+        initEmptyViewLayout(dataBinding.getRoot().findViewById(id));
     }
 
     @Override
@@ -83,7 +80,7 @@ public abstract class BaseEmptyActivity<VB extends ViewDataBinding> extends Base
             baseDialogFragment = new BaseDialogFragment();
         }
         if(baseDialogFragment.getDialog()==null){
-            baseDialogFragment.show(getSupportFragmentManager(), "");
+            baseDialogFragment.show(getFragmentManager(), "");
         }
 
     }
@@ -99,7 +96,7 @@ public abstract class BaseEmptyActivity<VB extends ViewDataBinding> extends Base
     }
     public void showToast(String msg) {
         hideOtherLoading();
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
     }
 
     public void showWaiting() {
@@ -111,39 +108,39 @@ public abstract class BaseEmptyActivity<VB extends ViewDataBinding> extends Base
 
         @Override
         public void showEmpty() {
-            BaseEmptyActivity.this.showEmpty();
+            BaseEmptyFragment.this.showEmpty();
 
         }
 
         @Override
         public void showDataError(String msg) {
-            BaseEmptyActivity.this.showDataError(msg);
+            BaseEmptyFragment.this.showDataError(msg);
         }
 
         @Override
         public void showNetError(String msg) {
-            BaseEmptyActivity.this.showNetError(msg);
+            BaseEmptyFragment.this.showNetError(msg);
         }
 
         @Override
         public void showContent() {
-            BaseEmptyActivity.this.showContent();
+            BaseEmptyFragment.this.showContent();
         }
 
         @Override
         public void showLoading() {
-            BaseEmptyActivity.this.showLoading();
+            BaseEmptyFragment.this.showLoading();
         }
 
         @Override
         public void showToast(String msg) {
-            BaseEmptyActivity.this.showToast(msg);
+            BaseEmptyFragment.this.showToast(msg);
         }
 
         @Override
         public void showWaiting() {
 
-            BaseEmptyActivity.this.showWaiting();
+            BaseEmptyFragment.this.showWaiting();
         }
 
     }
@@ -155,6 +152,7 @@ public abstract class BaseEmptyActivity<VB extends ViewDataBinding> extends Base
             public void onChanged(BaseBean<M> mBaseBean) {
                 M body = mBaseBean.getBody();
                 Throwable throwable = mBaseBean.getThrowable();
+
                 switch (mBaseBean.getType()) {
                     case ShowStateType.TYPE_SHOWCONTENT:
                         onCallBack.showContent();
@@ -186,5 +184,4 @@ public abstract class BaseEmptyActivity<VB extends ViewDataBinding> extends Base
 
 
     }
-
 }
