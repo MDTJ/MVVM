@@ -1,14 +1,12 @@
 package com.yunda.mvvm;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.yunda.annotation.SingleClick;
 import com.yunda.lib.base_module.db.entity.UserEntity;
 import com.yunda.lib.base_module.mvvm.BaseMVVMActivity;
 import com.yunda.mvvm.databinding.ActivityMainBinding;
@@ -47,11 +45,13 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel, ActivityMainBi
 
     }
 
+    @SingleClick(20000)
     public void insert(View view) {
         UserEntity userEntity=new UserEntity();
         userEntity.setName("mt");
         userEntity.setAddress("aaaaa");
         viewModel.insert(userEntity);
+
     }
 
     public void query(View view) {

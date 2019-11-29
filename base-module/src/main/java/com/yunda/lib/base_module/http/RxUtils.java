@@ -180,6 +180,7 @@ public class RxUtils {
             BaseBean<M> value = liveData.getValue();
             value.setThrowable(throwable);
             value.setType(ShowStateType.TYPE_SHOWNETERROR);
+            liveData.postValue(value);
 
         }
 
@@ -188,6 +189,7 @@ public class RxUtils {
             BaseBean<M> value = liveData.getValue();
             value.setThrowable(throwable);
             value.setType(ShowStateType.TYPE_SHOWDATAERROR);
+            liveData.postValue(value);
 
         }
 
@@ -196,6 +198,7 @@ public class RxUtils {
             BaseBean<M> value = liveData.getValue();
             value.setThrowable(throwable);
             value.setType(ShowStateType.TYPE_SHOWDATAERROR);
+            liveData.postValue(value);
         }
     }
 
@@ -212,6 +215,7 @@ public class RxUtils {
             BaseBean<M> value = liveData.getValue();
             value.setThrowable(throwable);
             value.setType(ShowStateType.TYPE_SHOWTOAST);
+            liveData.postValue(value);
 
         }
 
@@ -220,6 +224,7 @@ public class RxUtils {
             BaseBean<M> value = liveData.getValue();
             value.setThrowable(throwable);
             value.setType(ShowStateType.TYPE_SHOWTOAST);
+            liveData.postValue(value);
         }
 
         @Override
@@ -227,6 +232,7 @@ public class RxUtils {
             BaseBean<M> value = liveData.getValue();
             value.setThrowable(throwable);
             value.setType(ShowStateType.TYPE_SHOWTOAST);
+            liveData.postValue(value);
 
 
         }

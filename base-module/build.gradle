@@ -63,5 +63,9 @@ dependencies {
     api deps.autodispose
     api deps.recyclerview
     api project(':ViewLib')
+    api deps.BaseRecyclerViewAdapterHelper
+    api deps.smartRefreshLayout
+    implementation 'org.aspectj:aspectjrt:1.8.+'
+    api project(':annotation')
 
 }
