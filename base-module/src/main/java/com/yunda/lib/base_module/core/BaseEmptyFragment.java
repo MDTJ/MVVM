@@ -25,15 +25,16 @@ public abstract class BaseEmptyFragment<VB extends ViewDataBinding> extends Base
         setEmptyView(mEmptyViewLayout);
     }
 
-    protected void setEmptyView(EmptyViewLayout emptyView){
+    protected void setEmptyView(EmptyViewLayout emptyView) {
     }
+
     protected void initEmptyViewLayout(@IdRes int id) {
         initEmptyViewLayout(dataBinding.getRoot().findViewById(id));
     }
 
     @Override
     public void errorButtonListener() {
-
+       showContent();
     }
 
     public void showEmpty() {
@@ -45,7 +46,7 @@ public abstract class BaseEmptyFragment<VB extends ViewDataBinding> extends Base
 
     public void showDataError(String msg) {
         hideOtherLoading();
-        if (mEmptyViewLayout != null){
+        if (mEmptyViewLayout != null) {
             mEmptyViewLayout.showEmpty();
 //            mEmptyViewLayout.setDataErrorMessage(msg);
         }
@@ -53,7 +54,7 @@ public abstract class BaseEmptyFragment<VB extends ViewDataBinding> extends Base
 
     public void showNetError(String msg) {
         hideOtherLoading();
-        if (mEmptyViewLayout != null){
+        if (mEmptyViewLayout != null) {
             mEmptyViewLayout.showDataError();
 //            mEmptyViewLayout.showNetError();
 //            mEmptyViewLayout.setNetErrorMessage(msg);
@@ -73,30 +74,34 @@ public abstract class BaseEmptyFragment<VB extends ViewDataBinding> extends Base
         dismissDialogLoading();
     }
 
+    public void loadMoreError(){
 
-    public  void showDialogLoading() {
+    }
+
+
+    public void showDialogLoading() {
         hideOtherLoading();
         if (baseDialogFragment == null) {
             baseDialogFragment = new BaseDialogFragment();
         }
-        if(baseDialogFragment.getDialog()==null){
+        if (baseDialogFragment.getDialog() == null) {
             baseDialogFragment.show(getFragmentManager(), "");
         }
 
     }
 
     public void dismissDialogLoading() {
-        if (baseDialogFragment != null&&baseDialogFragment.getDialog()!=null && baseDialogFragment.getDialog().isShowing())
-        {
+        if (baseDialogFragment != null && baseDialogFragment.getDialog() != null && baseDialogFragment.getDialog().isShowing()) {
             baseDialogFragment.dismissAllowingStateLoss();
 
         }
 
         baseDialogFragment = null;
     }
+
     public void showToast(String msg) {
         hideOtherLoading();
-        Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
     public void showWaiting() {
@@ -142,6 +147,9 @@ public abstract class BaseEmptyFragment<VB extends ViewDataBinding> extends Base
 
             BaseEmptyFragment.this.showWaiting();
         }
+        public void loadMoreError(){
+            BaseEmptyFragment.this.loadMoreError();
+        }
 
     }
 
@@ -175,6 +183,9 @@ public abstract class BaseEmptyFragment<VB extends ViewDataBinding> extends Base
                         break;
                     case ShowStateType.TYPE_SHOWTOAST:
                         onCallBack.showToast(throwable.getMessage());
+                        break;
+                    case ShowStateType.TYPE_LOADMOREERROR:
+                        onCallBack.loadMoreError();
                         break;
 
                 }

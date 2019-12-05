@@ -1,7 +1,6 @@
 package com.yunda.lib.base_module.core;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ import com.yunda.lib.base_module.widget.BaseTextView;
  * Created by mtt on 2019-11-22
  * Describe
  */
-public abstract class BaseActivity<VB extends ViewDataBinding> extends AppCompatActivity implements IBaseView{
+public abstract class BaseActivity<VB extends ViewDataBinding> extends AppCompatActivity implements IBaseView {
     private ImmersionBar mImmersionBar;
     private LinearLayout parentLinearLayout;
 

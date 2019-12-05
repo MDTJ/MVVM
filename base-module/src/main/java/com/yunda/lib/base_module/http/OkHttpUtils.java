@@ -3,6 +3,7 @@ package com.yunda.lib.base_module.http;
 
 import android.os.Environment;
 
+import com.yunda.lib.base_module.BuildConfig;
 import com.yunda.lib.base_module.data.BaseProvider;
 import com.yunda.lib.base_module.data.BaseSp;
 import com.yunda.lib.base_module.http.fastjson.FastJsonConverterFactory;
@@ -85,7 +86,7 @@ public class OkHttpUtils {
     }
 
     public static Retrofit getRetrofit(OkHttpClient okHttpClient) {
-        return getRetrofit("http://10.20.149.185:8060/", okHttpClient);
+        return getRetrofit(BuildConfig.BASE_URL, okHttpClient);
     }
 
 }

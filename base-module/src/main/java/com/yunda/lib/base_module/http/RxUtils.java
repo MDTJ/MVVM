@@ -1,7 +1,6 @@
 package com.yunda.lib.base_module.http;
 
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.alibaba.fastjson.JSON;
@@ -51,7 +50,7 @@ public class RxUtils {
     public static <T extends BaseBean> ObservableTransformer<T, T> checkResponseResult() {
         return upstream -> upstream.map((Function<T, T>) t -> {
             if (t == null || t.getResult() == null) {
-                throw new ServerError("服务器异常，数据为空",ResponseCode.ERROR_CODE);
+                throw new ServerError("服务器异常，数据为空", ResponseCode.ERROR_CODE);
             }
             if (t.getResult().getCode() == ResponseCode.SUCCESS_CODE) { //成功  1
                 return t;
@@ -120,10 +119,12 @@ public class RxUtils {
 
 
     public abstract static class DealThrowable<M> implements Consumer<Throwable> {
-        MutableLiveData<BaseBean<M>> liveData;
+        MutableLiveData<BaseBean> liveData;
+        BaseBean value;
 
-        public DealThrowable(MutableLiveData<BaseBean<M>> liveData) {
+        public DealThrowable(MutableLiveData<BaseBean> liveData) {
             this.liveData = liveData;
+            value=liveData.getValue();
         }
 
         @Override
@@ -167,8 +168,8 @@ public class RxUtils {
         protected abstract void otherError(Throwable throwable);
     }
 
-    public static class SimpleDealThrowable<M> extends DealThrowable<M> {
-        public SimpleDealThrowable(MutableLiveData<BaseBean<M>> liveData) {
+    public static class SimpleDealThrowable<M> extends DealThrowable {
+        public SimpleDealThrowable(MutableLiveData<BaseBean> liveData) {
             super(liveData);
         }
 
@@ -177,7 +178,6 @@ public class RxUtils {
             if (throwable == null){
                 throwable = new Exception("您的网络好像有问题!");
             }
-            BaseBean<M> value = liveData.getValue();
             value.setThrowable(throwable);
             value.setType(ShowStateType.TYPE_SHOWNETERROR);
             liveData.postValue(value);
@@ -186,7 +186,6 @@ public class RxUtils {
 
         @Override
         protected void dataError(Throwable throwable) {
-            BaseBean<M> value = liveData.getValue();
             value.setThrowable(throwable);
             value.setType(ShowStateType.TYPE_SHOWDATAERROR);
             liveData.postValue(value);
@@ -195,15 +194,14 @@ public class RxUtils {
 
         @Override
         protected void otherError(Throwable throwable) {
-            BaseBean<M> value = liveData.getValue();
             value.setThrowable(throwable);
             value.setType(ShowStateType.TYPE_SHOWDATAERROR);
             liveData.postValue(value);
         }
     }
 
-    public static class SimpleToastThrowable<M> extends DealThrowable<M> {
-        public SimpleToastThrowable(MutableLiveData<BaseBean<M>> liveData) {
+    public static class SimpleToastThrowable<M> extends DealThrowable {
+        public SimpleToastThrowable(MutableLiveData<BaseBean> liveData) {
             super(liveData);
         }
 
@@ -212,7 +210,6 @@ public class RxUtils {
             if (throwable == null){
                 throwable = new Exception("您的网络好像有问题!");
             }
-            BaseBean<M> value = liveData.getValue();
             value.setThrowable(throwable);
             value.setType(ShowStateType.TYPE_SHOWTOAST);
             liveData.postValue(value);
@@ -221,7 +218,6 @@ public class RxUtils {
 
         @Override
         protected void dataError(Throwable throwable) {
-            BaseBean<M> value = liveData.getValue();
             value.setThrowable(throwable);
             value.setType(ShowStateType.TYPE_SHOWTOAST);
             liveData.postValue(value);
@@ -229,7 +225,6 @@ public class RxUtils {
 
         @Override
         protected void otherError(Throwable throwable) {
-            BaseBean<M> value = liveData.getValue();
             value.setThrowable(throwable);
             value.setType(ShowStateType.TYPE_SHOWTOAST);
             liveData.postValue(value);

@@ -1,14 +1,14 @@
 package com.yunda.lib.base_module.mvvm;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
 import com.uber.autodispose.AutoDisposeConverter;
 import com.uber.autodispose.ObservableSubscribeProxy;
 import com.yunda.lib.base_module.core.BaseBean;
 import com.yunda.lib.base_module.core.ShowStateType;
 import com.yunda.lib.base_module.http.RxUtils;
+
 import io.reactivex.Observable;
-import io.reactivex.ObservableConverter;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -63,7 +63,7 @@ public class BaseRepository<A> {
     }
 
 
-     void addSubscribe(Disposable subscription) {
+     protected void addSubscribe(Disposable subscription) {
         this.compositeDisposable.add(subscription);
     }
 

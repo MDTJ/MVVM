@@ -5,7 +5,6 @@ package com.yunda.mvvm;
 import com.yunda.lib.base_module.core.BaseBean;
 
 import io.reactivex.Observable;
-import retrofit2.http.Field;
 import retrofit2.http.POST;
 
 /**

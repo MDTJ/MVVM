@@ -3,9 +3,7 @@ package com.yunda.lib.base_module.mvvm;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.uber.autodispose.AutoDispose;

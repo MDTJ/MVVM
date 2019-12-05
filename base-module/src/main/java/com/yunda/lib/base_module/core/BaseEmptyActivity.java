@@ -1,6 +1,5 @@
 package com.yunda.lib.base_module.core;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -8,7 +7,6 @@ import androidx.annotation.IdRes;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.BaseDialogFragment;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.yunda.lib.view.emptyview.EmptyViewLayout;
@@ -149,7 +147,6 @@ public abstract class BaseEmptyActivity<VB extends ViewDataBinding> extends Base
     }
 
     protected <M> void observe(LiveData<BaseBean<M>> liveData, OnCallBack onCallBack) {
-
         liveData.observe(this, new Observer<BaseBean<M>>() {
             @Override
             public void onChanged(BaseBean<M> mBaseBean) {

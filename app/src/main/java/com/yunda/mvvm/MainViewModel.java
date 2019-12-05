@@ -1,39 +1,25 @@
 package com.yunda.mvvm;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-
-import com.uber.autodispose.AutoDispose;
-import com.uber.autodispose.ObservableSubscribeProxy;
-import com.yunda.lib.arouter_module.DBInstance;
 import com.yunda.lib.base_module.core.BaseBean;
 import com.yunda.lib.base_module.db.entity.UserEntity;
-import com.yunda.lib.base_module.http.RxUtils;
-import com.yunda.lib.base_module.mvvm.BaseRepository;
 import com.yunda.lib.base_module.mvvm.BaseViewModel;
 
 import java.util.List;
 
 import io.reactivex.Completable;
-import io.reactivex.CompletableEmitter;
-import io.reactivex.CompletableObserver;
-import io.reactivex.CompletableOnSubscribe;
-import io.reactivex.Scheduler;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by mtt on 2019-11-22
  * Describe
  */
-public class MainViewModel extends BaseViewModel<MainApiService,MainRepository> {
+public class MainViewModel extends BaseViewModel<MainApiService, MainRepository> {
 
 
     public MainViewModel(@NonNull Application application) {
@@ -46,7 +32,12 @@ public class MainViewModel extends BaseViewModel<MainApiService,MainRepository> 
 
 
     public void insert(UserEntity entity){
-
+        Completable.fromAction(new Action() {
+            @Override
+            public void run() throws Exception {
+                repository.insert(entity);
+            }
+        }).subscribeOn(Schedulers.io()).subscribe();
     }
 
     public LiveData<List<UserEntity>> query(){

@@ -13,7 +13,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
 /**
  * Created by mtt on 2019-11-22
@@ -28,17 +28,22 @@ public abstract class BaseViewModel<A,R extends BaseRepository<A>> extends Andro
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
-        repository=createRepository();
-        createCompositeDisposable();
-        repository.setCompositeDisposable(compositeDisposable);
+
 
         Class apiClass;
         Type type = getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
             apiClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[0];
-            apiService= (A) OkHttpUtils.getRetrofit().create(apiClass);
+            try{
+                apiService= (A) OkHttpUtils.getRetrofit().create(apiClass);
+            }catch (Exception e){
+                Timber.e(e);
+            }
 
         }
+        repository=createRepository();
+        createCompositeDisposable();
+        repository.setCompositeDisposable(compositeDisposable);
         repository.setApiService(apiService);
 
     }
@@ -55,13 +60,13 @@ public abstract class BaseViewModel<A,R extends BaseRepository<A>> extends Andro
 
 
 
-    private R createRepository() {
-        Class cs;
+    protected R createRepository() {
+        Class apiClass;
         Type type = getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
-            cs = (Class) ((ParameterizedType) type).getActualTypeArguments()[1];
+            apiClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[1];
             try {
-                return ((R) cs.newInstance());
+                return ((R) apiClass.newInstance());
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (InstantiationException e) {

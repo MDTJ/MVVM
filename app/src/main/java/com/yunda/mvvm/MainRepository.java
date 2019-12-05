@@ -18,4 +18,8 @@ public class MainRepository extends BaseRepository<MainApiService> {
         return DBInstance.getInstance().getUserDao().getAllByLivedata();
     }
 
+    public void insert(UserEntity entity){
+        DBInstance.getInstance().getUserDao().insert(entity);
+    }
+
 }

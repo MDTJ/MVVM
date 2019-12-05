@@ -13,6 +13,7 @@ public class ShowStateType {
     public static final int TYPE_SHOWNETERROR=115;
     public static final int TYPE_SHOWDATAERROR=116;
     public static final int TYPE_SHOWEMPTY=117;
+    public static final int TYPE_LOADMOREERROR=118;
 
 
 }

@@ -1,10 +1,10 @@
 package com.yunda.mvvm;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-
 import android.util.Log;
 import android.view.View;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import com.yunda.annotation.SingleClick;
 import com.yunda.lib.base_module.db.entity.UserEntity;
@@ -41,14 +41,15 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel, ActivityMainBi
     public void initData() {
         setToolBarTitle("Main");
         initEmptyViewLayout(R.id.empty);
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment,new MainFragment()).commit();
+        ListPageFragment listPageFragment = new ListPageFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment,listPageFragment).commit();
 
     }
 
-    @SingleClick(20000)
+    @SingleClick(1000)
     public void insert(View view) {
         UserEntity userEntity=new UserEntity();
-        userEntity.setName("mt");
+        userEntity.setName("mtt");
         userEntity.setAddress("aaaaa");
         viewModel.insert(userEntity);
 

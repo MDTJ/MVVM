@@ -2,14 +2,11 @@ package com.yunda.lib.base_module.db.entity;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 /**
@@ -25,7 +22,8 @@ public interface UserDao {
     @Query("SELECT * FROM UserEntity")
     LiveData<List<UserEntity>> getAllByLivedata();
 
-
+    @Query("SELECT * FROM UserEntity")
+    Observable<List<UserEntity>> getAlldata();
 
 
 }

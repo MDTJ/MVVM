@@ -18,6 +18,11 @@ android {
         consumerProguardFiles 'consumer-rules.pro'
         buildConfigField("String", "ID", "\"" + rootProject.ext.android.id + "\"")
         buildConfigField("Boolean", "ISONLINE",isOnline)
+        if ("true" == isOnline) {
+            buildConfigField("String", "BASE_URL", "\"" + rootProject.ext.net.domain + "\"")
+        } else {
+            buildConfigField("String", "BASE_URL", "\"" + rootProject.ext.netDebug.domain + "\"")
+        }
     }
 
     buildTypes {

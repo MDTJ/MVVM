@@ -1,6 +1,5 @@
 package com.yunda.mvvm;
 
-import android.util.Log;
 import android.view.View;
 
 import com.yunda.lib.base_module.mvvm.BaseMVVMFragment;

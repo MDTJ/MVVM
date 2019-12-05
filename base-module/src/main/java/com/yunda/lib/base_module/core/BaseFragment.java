@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
  * Created by mtt on 2019-11-28
  * Describe
  */
-public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment implements IBaseView{
+public abstract class BaseFragment<VB extends ViewDataBinding> extends Fragment implements IBaseView {
     protected VB dataBinding;
 
 
