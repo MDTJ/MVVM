@@ -1,6 +1,11 @@
 package com.yunda.lib.base_module.view.nopage;
 
 
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -16,6 +21,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yunda.lib.base_module.R;
 import com.yunda.lib.base_module.databinding.BaseNopageFragmentBinding;
 import com.yunda.lib.base_module.mvvm.BaseMVVMFragment;
+import com.yunda.lib.base_module.widget.SideslipRecyclerViewItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +29,7 @@ import java.util.List;
 public abstract class BaseNoPageListFragment<VM extends BaseNoPageViewModel,D> extends BaseMVVMFragment<VM, BaseNopageFragmentBinding> implements OnRefreshListener {
     protected List<D> data = new ArrayList<>();
     SmartRefreshLayout swipeRefresh;
-    protected NoPageAdapter mAdapter;
+    protected BaseQuickAdapter mAdapter;
     private RecyclerView recycler;
 
 
@@ -43,6 +49,11 @@ public abstract class BaseNoPageListFragment<VM extends BaseNoPageViewModel,D> e
     }
 
     @Override
+    public void setListener() {
+
+    }
+
+    @Override
     public void initData() {
         recycler = dataBinding.recycler;
         swipeRefresh = dataBinding.swipeRefresh;
@@ -52,7 +63,11 @@ public abstract class BaseNoPageListFragment<VM extends BaseNoPageViewModel,D> e
         swipeRefresh.setRefreshHeader(new ClassicsHeader(getActivity()));
         swipeRefresh.setEnableLoadMore(false);
         swipeRefresh.setOnRefreshListener(this);
-        mAdapter = new NoPageAdapter(getItemLayout());
+        if (isNeedRightMenu() != 0) {
+            mAdapter = new HaveMenuPageAdapter();
+        } else {
+            mAdapter = new NoPageAdapter(getItemLayout());
+        }
         recycler.setAdapter(mAdapter);
 
         observe(((LiveData) viewModel.getData(getDataType())), new OnCallBack<NoPageInterface<D>>() {
@@ -61,6 +76,7 @@ public abstract class BaseNoPageListFragment<VM extends BaseNoPageViewModel,D> e
                 initAdapter(body.getList());
             }
         });
+        autoRefresh();
     }
 
 
@@ -124,16 +140,111 @@ public abstract class BaseNoPageListFragment<VM extends BaseNoPageViewModel,D> e
     protected class NoPageAdapter extends BaseQuickAdapter<D, BaseViewHolder> {
 
         public NoPageAdapter(@LayoutRes int layoutResId) {
+
             super(layoutResId, data);
         }
 
         @Override
         protected void convert(BaseViewHolder helper, D item) {
             convertItem(helper, item);
+
+        }
+
+    }
+
+
+
+    protected class HaveMenuPageAdapter extends BaseQuickAdapter<D, BaseViewHolder> {
+
+        private SideslipRecyclerViewItem cruView;//当前滑出的view
+        private int width;
+        private RelativeLayout.LayoutParams params;
+        private RelativeLayout.LayoutParams params2;
+
+        public HaveMenuPageAdapter() {
+            super(R.layout.base_item_recycle, data);
+            DisplayMetrics displaymetrics = new DisplayMetrics();
+            getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+            width = displaymetrics.widthPixels;
+            params = new RelativeLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.CENTER_VERTICAL);
+            params2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params2.addRule(RelativeLayout.CENTER_VERTICAL);
+            params2.addRule(RelativeLayout.RIGHT_OF, R.id.base_item_content_layout);
+
+        }
+
+        @Override
+        protected View getItemView(int layoutResId, ViewGroup parent) {
+            View view = mLayoutInflater.inflate(layoutResId, parent, false);
+            if (view instanceof SideslipRecyclerViewItem) {
+                ((SideslipRecyclerViewItem) view).setOnScrollListener(new SideslipRecyclerViewItem.OnScrollListener() {
+                    @Override
+                    public void onScrolledViewListener(SideslipRecyclerViewItem view) {
+                        cruView = view;
+                    }
+
+                    @Override
+                    public void onClickDownListener() {
+                        if (cruView != null) {
+                            cruView.reset();
+                            cruView = null;
+                        }
+                    }
+
+                    @Override
+                    public boolean onIntercept() {
+                        if (cruView == null) {
+                            return false;
+                        }
+                        return cruView != view;
+                    }
+                });
+            }
+
+            RelativeLayout contentLayout = view.findViewById(R.id.base_item_content_layout);
+            if (contentLayout != null) {
+                contentLayout.setLayoutParams(params);
+                mLayoutInflater.inflate(getItemLayout(), contentLayout, true);
+            }
+            RelativeLayout rightLayout = view.findViewById(R.id.base_item_right_Layout);
+            if (rightLayout != null) {
+                rightLayout.setLayoutParams(params2);
+                mLayoutInflater.inflate(isNeedRightMenu(), rightLayout, true);
+
+            }
+
+
+            return view;
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper, D item) {
+            convertItem(helper, item);
+            helper.getView(R.id.base_item_content_layout).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (cruView != null) {
+                        cruView.reset();
+                        cruView=null;
+                        return;
+                    }
+                    BaseNoPageListFragment.this.setOnItemClickListener(item);
+                }
+            });
         }
     }
 
     protected abstract int getItemLayout();
 
     protected abstract void convertItem(BaseViewHolder helper, D item);
+
+    protected void setOnItemClickListener(D item) {
+
+    }
+
+    //设置菜单的布局
+    protected int isNeedRightMenu() {
+        return 0;
+    }
 }

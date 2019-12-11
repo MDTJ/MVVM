@@ -6,7 +6,6 @@ import android.view.View;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
-import com.yunda.annotation.SingleClick;
 import com.yunda.lib.base_module.db.entity.UserEntity;
 import com.yunda.lib.base_module.mvvm.BaseMVVMActivity;
 import com.yunda.mvvm.databinding.ActivityMainBinding;
@@ -41,12 +40,12 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel, ActivityMainBi
     public void initData() {
         setToolBarTitle("Main");
         initEmptyViewLayout(R.id.empty);
-        ListPageFragment listPageFragment = new ListPageFragment();
+        ListFragment listPageFragment = new ListFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.fragment,listPageFragment).commit();
 
     }
 
-    @SingleClick(1000)
+//    @SingleClick(20000)
     public void insert(View view) {
         UserEntity userEntity=new UserEntity();
         userEntity.setName("mtt");
@@ -61,6 +60,7 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel, ActivityMainBi
         query.observe(this, new Observer<List<UserEntity>>() {
             @Override
             public void onChanged(List<UserEntity> userEntities) {
+                Log.e("asdad",userEntities.size()+"");
                 query.removeObservers(MainActivity.this);
             }
         });

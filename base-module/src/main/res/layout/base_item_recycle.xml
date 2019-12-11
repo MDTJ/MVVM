@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yunda.lib.base_module.widget.SideslipRecyclerViewItem xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
+    android:overScrollMode="never"
+   >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <RelativeLayout
+            android:id="@+id/base_item_content_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/base_item_right_Layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/base_item_content_layout">
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</com.yunda.lib.base_module.widget.SideslipRecyclerViewItem>

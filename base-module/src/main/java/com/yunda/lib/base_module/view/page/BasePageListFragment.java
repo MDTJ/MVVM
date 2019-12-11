@@ -1,5 +1,10 @@
 package com.yunda.lib.base_module.view.page;
 
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -15,6 +20,7 @@ import com.yunda.lib.base_module.R;
 import com.yunda.lib.base_module.databinding.BasePagefragmentBinding;
 import com.yunda.lib.base_module.mvvm.BaseMVVMFragment;
 import com.yunda.lib.base_module.view.nopage.NoPageInterface;
+import com.yunda.lib.base_module.widget.SideslipRecyclerViewItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,42 +29,47 @@ import java.util.List;
  * Created by mtt on 2019-12-03
  * Describe
  */
-public abstract class BasePageListFragment<VM extends BasePageViewModel,D> extends BaseMVVMFragment<VM, BasePagefragmentBinding> implements OnRefreshListener , BaseQuickAdapter.RequestLoadMoreListener {
+public abstract class BasePageListFragment<VM extends BasePageViewModel, D> extends BaseMVVMFragment<VM, BasePagefragmentBinding> implements OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
     protected List<D> data = new ArrayList<>();
     SmartRefreshLayout swipeRefresh;
-    protected PageAdapter mAdapter;
+    protected BaseQuickAdapter mAdapter;
     private RecyclerView recycler;
-
 
 
     @Override
     public int getLayoutId() {
-         return R.layout.base_pagefragment;
+        return R.layout.base_pagefragment;
     }
 
     @Override
     public void setListener() {
 
+
     }
 
     @Override
     public void initData() {
-        recycler =dataBinding.recycler;
+        recycler = dataBinding.recycler;
         swipeRefresh = dataBinding.swipeRefresh;
 
         initEmptyViewLayout(getEmptyViewLayout());
         swipeRefresh.setRefreshHeader(new ClassicsHeader(getActivity()));
         swipeRefresh.setEnableLoadMore(false);
         swipeRefresh.setOnRefreshListener(this);
-        mAdapter = new PageAdapter(getItemLayout());
+        if (isNeedRightMenu() != 0) {
+            mAdapter = new HaveMenuPageAdapter();
+        } else {
+            mAdapter = new PageAdapter(getItemLayout());
+        }
         mAdapter.setEnableLoadMore(true);
         mAdapter.setOnLoadMoreListener(this, recycler);
         recycler.setAdapter(mAdapter);
+        autoRefresh();
 
     }
 
 
-    public void autoRefresh(){
+    public void autoRefresh() {
         swipeRefresh.autoRefresh();
         recycler.scrollToPosition(0);
     }
@@ -69,7 +80,7 @@ public abstract class BasePageListFragment<VM extends BasePageViewModel,D> exten
         observe(viewModel.getData(getDataType()), new OnCallBack<NoPageInterface<D>>() {
             @Override
             public void onSuccess(NoPageInterface<D> body) {
-                initAdapter(body.getList(),1);
+                initAdapter(body.getList(), 1);
             }
         });
 
@@ -80,7 +91,7 @@ public abstract class BasePageListFragment<VM extends BasePageViewModel,D> exten
         observe(viewModel.getData(getDataType()), new OnCallBack<NoPageInterface<D>>() {
             @Override
             public void onSuccess(NoPageInterface<D> body) {
-                initAdapter(body.getList(),viewModel.getNextPage()-1);
+                initAdapter(body.getList(), viewModel.getNextPage() - 1);
             }
         });
     }
@@ -99,17 +110,17 @@ public abstract class BasePageListFragment<VM extends BasePageViewModel,D> exten
     }
 
 
-    public void initAdapter(List<D> data,int requestPage) {
-        if(requestPage==1){
+    public void initAdapter(List<D> data, int requestPage) {
+        if (requestPage == 1) {
             this.data.clear();
             this.data.addAll(data);
             mAdapter.setNewData(data);
-        }else {
+        } else {
             this.data.addAll(data);
             mAdapter.setNewData(this.data);
-            if(this.data.size()==viewModel.getTotalNum()){
+            if (this.data.size() == viewModel.getTotalNum()) {
                 loadMoreOver();
-            }else {
+            } else {
                 loadMoreComplete();
             }
         }
@@ -149,22 +160,115 @@ public abstract class BasePageListFragment<VM extends BasePageViewModel,D> exten
     }
 
     /**
-     *  {@link BasePageRepository}
+     * {@link BasePageRepository}
      */
     protected abstract int getDataType();
 
     protected class PageAdapter extends BaseQuickAdapter<D, BaseViewHolder> {
-
         public PageAdapter(@LayoutRes int layoutResId) {
             super(layoutResId, data);
+
         }
 
         @Override
         protected void convert(BaseViewHolder helper, D item) {
             convertItem(helper, item);
+
         }
     }
+
+
+    protected class HaveMenuPageAdapter extends BaseQuickAdapter<D, BaseViewHolder> {
+
+        private SideslipRecyclerViewItem cruView;//当前滑出的view
+        private int width;
+        private RelativeLayout.LayoutParams params;
+        private RelativeLayout.LayoutParams params2;
+
+        public HaveMenuPageAdapter() {
+            super(R.layout.base_item_recycle, data);
+            DisplayMetrics displaymetrics = new DisplayMetrics();
+            getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+            width = displaymetrics.widthPixels;
+            params = new RelativeLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.CENTER_VERTICAL);
+            params2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params2.addRule(RelativeLayout.CENTER_VERTICAL);
+            params2.addRule(RelativeLayout.RIGHT_OF, R.id.base_item_content_layout);
+
+        }
+
+        @Override
+        protected View getItemView(int layoutResId, ViewGroup parent) {
+            View view = mLayoutInflater.inflate(layoutResId, parent, false);
+            if (view instanceof SideslipRecyclerViewItem) {
+                ((SideslipRecyclerViewItem) view).setOnScrollListener(new SideslipRecyclerViewItem.OnScrollListener() {
+                    @Override
+                    public void onScrolledViewListener(SideslipRecyclerViewItem view) {
+                        cruView = view;
+                    }
+
+                    @Override
+                    public void onClickDownListener() {
+                        if (cruView != null) {
+                            cruView.reset();
+                            cruView = null;
+                        }
+                    }
+
+                    @Override
+                    public boolean onIntercept() {
+                        if (cruView == null) {
+                            return false;
+                        }
+                        return cruView != view;
+                    }
+                });
+            }
+
+            RelativeLayout contentLayout = view.findViewById(R.id.base_item_content_layout);
+            if (contentLayout != null) {
+                contentLayout.setLayoutParams(params);
+                mLayoutInflater.inflate(getItemLayout(), contentLayout, true);
+            }
+            RelativeLayout rightLayout = view.findViewById(R.id.base_item_right_Layout);
+            if (rightLayout != null) {
+                rightLayout.setLayoutParams(params2);
+                mLayoutInflater.inflate(isNeedRightMenu(), rightLayout, true);
+
+            }
+
+
+            return view;
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper, D item) {
+            convertItem(helper, item);
+            helper.getView(R.id.base_item_content_layout).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (cruView != null) {
+                        cruView.reset();
+                        cruView=null;
+                        return;
+                    }
+                    BasePageListFragment.this.setOnItemClickListener(item);
+                }
+            });
+        }
+    }
+
     protected abstract int getItemLayout();
 
     protected abstract void convertItem(BaseViewHolder helper, D item);
+
+    protected void setOnItemClickListener(D item) {
+
+    }
+
+    //设置菜单的布局
+    protected int isNeedRightMenu() {
+        return 0;
+    }
 }
