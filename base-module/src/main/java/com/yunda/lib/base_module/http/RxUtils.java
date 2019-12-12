@@ -124,7 +124,7 @@ public class RxUtils {
 
         public DealThrowable(MutableLiveData<BaseBean> liveData) {
             this.liveData = liveData;
-            value=liveData.getValue();
+            value=new BaseBean();
         }
 
         @Override
