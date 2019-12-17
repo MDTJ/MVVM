@@ -5,7 +5,7 @@
     <data>
         <variable
             name="user"
-            type="com.yunda.mvvm.UserBean" />
+            type="com.mtt.mvvm.UserBean" />
         <variable
             name="onClick"
             type="android.view.View.OnClickListener"

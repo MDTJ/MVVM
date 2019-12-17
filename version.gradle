@@ -5,7 +5,7 @@ ext {
             minSdkVersion      : 16,
             targetSdkVersion   : 29,
             javaVersion        : JavaVersion.VERSION_1_8,
-            id                 : "com.yunda.wms",
+            id                 : "com.com.mtt.wms",
             versionCode        : 1,
             versionName        : "1.0.0",
             flavorDimensions   : "6"

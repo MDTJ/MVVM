@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.yunda.lib.arouter_module">
+    package="com.mtt.lib.arouter_module">
 
     <application
         android:allowBackup="true"

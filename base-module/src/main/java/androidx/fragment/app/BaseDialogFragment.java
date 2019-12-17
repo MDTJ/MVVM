@@ -12,7 +12,7 @@ import android.view.Window;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.yunda.lib.base_module.R;
+import com.mtt.lib.base_module.R;
 
 /**
  * Created by mtt on 2018/4/9.

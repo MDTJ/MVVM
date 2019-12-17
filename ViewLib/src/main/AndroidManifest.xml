@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
-    package="com.yunda.lib.view">
+    package="com.mtt.lib.view">
 
     <application
         android:allowBackup="true"
